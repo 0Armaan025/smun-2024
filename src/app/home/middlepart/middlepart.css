@@ -1,42 +1,10 @@
-.cloud {
-  position: relative;
-  /* display: block; */
-  width: 10em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 10em;
-  margin: 2em auto;
-  color: #3498db;
-  background: #fff;
-  border-width: 0.25em;
-  border-style: solid;
-  border-radius: 50% 50% 0 0;
+body {
+  margin: 0;
+  padding: 0;
 }
 
-.cloud:before,
-.cloud:after {
-  content: "";
-  position: absolute;
-  bottom: -0.25em;
-  background: inherit;
-  border-width: 0.25em;
-  border-style: solid;
-}
-
-.cloud:before {
-  left: 80%;
-  width: 60%;
-  height: 60%;
-  border-left: none;
-  border-radius: 50% 50% 50% 0;
-}
-
-.cloud:after {
-  right: 80%;
-  width: 80%;
-  height: 80%;
-  border-right: none;
-  border-radius: 50% 50% 0;
+.important-info-div {
+  width: 100%;
+  margin-left: 0px;
+  margin-right: 0px;
 }

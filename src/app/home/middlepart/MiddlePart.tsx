@@ -6,7 +6,7 @@ type Props = {};
 const MiddlePart = (props: Props) => {
   return (
     <>
-      <div className="middlePartDiv flex flex-col justify-center items-center px-4 md:px-8 lg:px-16">
+      <div className="middlePartDiv flex flex-col justify-center items-center ">
         <h4
           className="text-[#8e85fc] text-lg font-bold mt-8 text-center"
           style={{ fontFamily: "Poppins" }}
@@ -93,7 +93,7 @@ const MiddlePart = (props: Props) => {
             >
               Important Information for SMUN 2024
             </h3>
-            <div className="informationInformationDiv mt-8 flex flex-wrap justify-center items-center gap-4">
+            <div className="informationInformationDiv  mt-8 flex flex-wrap justify-center items-center gap-4 sm:m-4 mx-4">
               <div className="impInfoBox bg-white flex hover:bg-gray-100 transition-all cursor-pointer flex-col justify-center items-start text-start w-full sm:w-[18rem] md:w-[22rem] p-4 rounded-md">
                 <strong className="font-bold text-xl md:text-2xl text-gray-800">
                   Agenda:
@@ -119,7 +119,7 @@ const MiddlePart = (props: Props) => {
                 </span>
               </div>
             </div>
-            <div className="anotherInformationBox mt-8 flex flex-wrap justify-center items-center gap-4">
+            <div className="anotherInformationBox sm:m-4 mx-4 mt-8 flex flex-wrap justify-center items-center gap-4">
               <div className="impInfoBox bg-white flex hover:bg-gray-100 transition-all cursor-pointer flex-col justify-center items-start text-start w-full sm:w-[18rem] md:w-[22rem] p-4 rounded-md">
                 <strong className="font-bold text-xl md:text-2xl text-gray-800">
                   For:
@@ -141,7 +141,7 @@ const MiddlePart = (props: Props) => {
                 </span>
               </div>
             </div>
-            <div className="anotherInformationBox mt-8 flex flex-wrap justify-center items-center gap-4">
+            <div className="anotherInformationBox sm:m-4 mx-4 mt-8 flex flex-wrap justify-center items-center gap-4">
               <div className="impInfoBox bg-white flex hover:bg-gray-100 transition-all cursor-pointer flex-col justify-center items-start text-start w-full sm:w-[18rem] md:w-[22rem] p-4 rounded-md">
                 <strong className="font-bold text-xl md:text-2xl text-gray-800">
                   Join:
