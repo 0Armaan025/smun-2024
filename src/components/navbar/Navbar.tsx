@@ -10,7 +10,7 @@ const Navbar = () => {
         <h4>SMUN</h4>
       </div>
 
-      <div className="flex space-x-8">
+      <div className="flex space-x-8 ml-12">
         <a href="/" className="text-gray-700 transition-all hover:text-black">
           Home
         </a>
@@ -18,7 +18,7 @@ const Navbar = () => {
           href="/about"
           className="text-gray-700 transition-all hover:text-black"
         >
-          About Us
+          Learn
         </a>
       </div>
 
