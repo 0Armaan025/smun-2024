@@ -55,7 +55,7 @@ const MiddlePart = (props: Props) => {
             </h5>
           </div>
           <div className="centerItem rounded-md cursor-pointer hover:scale-105 transition-all bg-gray-200 p-4 flex flex-col justify-center items-start w-full md:w-[22rem]">
-            <h3 className="text-2xl">(ง︡'-'︠)ง</h3>
+            <h3 className="text-2xl">(ง'̀-'́)ง</h3>
             <h4
               className="mt-4 text-lg font-semibold"
               style={{ fontFamily: "Poppins" }}
