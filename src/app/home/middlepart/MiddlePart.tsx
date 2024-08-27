@@ -85,7 +85,7 @@ const MiddlePart = (props: Props) => {
         <br />
         <center>
           <a
-            href="https://www.quora.com/Do-you-prefer-emoticons-or-emoji"
+            href="https://www.britannica.com/story/whats-the-difference-between-emoji-and-emoticons"
             target="_blank"
             className="mt-8 text-xs md:text-xs "
           >
@@ -149,6 +149,26 @@ const MiddlePart = (props: Props) => {
                 <span className="text-gray-800">
                   Single/Duo (1/2), both work! Up to you.
                 </span>
+              </div>
+            </div>
+            <div className="anotherInformationBox sm:m-4 mx-4 mt-8 flex flex-wrap justify-center items-center gap-4">
+              <div className="impInfoBox bg-white flex hover:bg-gray-100 transition-all cursor-pointer flex-col justify-center items-start text-start w-full sm:w-[18rem] md:w-[22rem] p-4 rounded-md">
+                <strong className="font-bold text-xl md:text-2xl text-gray-800">
+                  1st place:
+                </strong>
+                <span className="text-gray-800">Best Delegate</span>
+              </div>
+              <div className="impInfoBox bg-white flex hover:bg-gray-100 transition-all cursor-pointer flex-col justify-center items-start text-start w-full sm:w-[18rem] md:w-[22rem] p-4 rounded-md">
+                <strong className="font-bold text-xl md:text-2xl text-gray-800">
+                  2nd place:
+                </strong>
+                <span className="text-gray-800">High Commendation</span>
+              </div>
+              <div className="impInfoBox bg-white flex hover:bg-gray-100 transition-all cursor-pointer flex-col justify-center items-start text-start w-full sm:w-[18rem] md:w-[22rem] p-4 rounded-md">
+                <strong className="font-bold text-xl md:text-2xl text-gray-800">
+                  3rd place:
+                </strong>
+              <span className="text-gray-800">Honorable Mention</span>
               </div>
             </div>
             <div className="anotherInformationBox sm:m-4 mx-4 mt-8 flex flex-wrap justify-center items-center gap-4">

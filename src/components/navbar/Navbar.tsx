@@ -21,7 +21,7 @@ const Navbar = () => {
           Home
         </a>
         <a
-          href="/about"
+          href="/learn"
           className="text-gray-700 transition-all hover:text-black text-center"
         >
           Learn

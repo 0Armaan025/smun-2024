@@ -1,7 +1,17 @@
 "use client";
+import { db } from "@/firebase/clientApp";
 import Navbar from "@/components/navbar/Navbar";
 import React, { useState } from "react";
-
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+  doc,
+  updateDoc,
+  Timestamp,
+} from "firebase/firestore";
 type Props = {};
 
 const RegisterPage = (props: Props) => {
@@ -16,6 +26,47 @@ const RegisterPage = (props: Props) => {
   const handleRoleSelection = (role: "Delegate" | "EB") => {
     setSelectedRole(role);
   };
+
+  // const handleSubmit = async (event: any) => {
+  //   event.preventDefault();
+  //   const { name, problem } = event.target.elements;
+
+  //   const newPatient = {
+  //     name: name.value,
+  //     problem: problem.value,
+  //     role: selectedRole,
+  //     date: Timestamp.now(),
+  //   };
+
+  //   const assignedRoom = assignRoom(newPatient) as any;
+
+  //   if (assignedRoom) {
+  //     const roomDocRef = doc(db, "rooms", assignedRoom.id);
+  //     const roomPatients = assignedRoom.patientsArray || [];
+  //     const updatedPatientsList = [...roomPatients, newPatient];
+
+  //     try {
+  //       await updateDoc(roomDocRef, { patientsArray: updatedPatientsList });
+
+  //       await addDoc(collection(db, "patients"), newPatient);
+
+  //       setRooms((prevRooms: any) =>
+  //         prevRooms.map((room: any) =>
+  //           room.id === assignedRoom.id
+  //             ? { ...room, patientsArray: updatedPatientsList }
+  //             : room
+  //         )
+  //       );
+  //       setPatients((prevPatients) => [...prevPatients, newPatient] as any);
+  //       alert("Patient added successfully!");
+  //     } catch (error) {
+  //       console.error("Error adding patient: ", error);
+  //       alert("Failed to add patient to the database.");
+  //     }
+  //   } else {
+  //     alert("No available rooms");
+  //   }
+  // };
 
   return (
     <>
@@ -114,6 +165,7 @@ const RegisterPage = (props: Props) => {
                 >
                   Delegate
                 </div>
+
                 <div
                   className={`p-4 flex-1 text-center rounded-r-md cursor-pointer ${
                     selectedRole === "EB"
@@ -126,7 +178,9 @@ const RegisterPage = (props: Props) => {
                   EB
                 </div>
               </div>
-
+              <label className="mt-2" style={{ fontFamily: "Poppins" }}>
+                Please make sure that you can enjoy being an EB or a delegate!{" "}
+              </label>
               <label className="font-semibold text-lg md:text-xl mt-4">
                 MUN Experience:
               </label>
