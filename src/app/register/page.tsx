@@ -39,17 +39,28 @@ const RegisterPage = (props: Props) => {
           where("email", "==", email),
           where("munName", "==", "SMUN-2024")
         );
+
         const querySnapshot = await getDocs(userQuery);
 
-        if (querySnapshot.empty) {
+        if (!querySnapshot.empty) {
+          const userDoc = querySnapshot.docs[0];
+          const userData = userDoc.data();
+
+          if (
+            userData.role === selectedRole &&
+            userData.munExperience === munExperience &&
+            userData.dateOfBirth ===
+              (dateOfBirth ? Timestamp.fromDate(new Date(dateOfBirth)) : null)
+          ) {
+            Cookies.set("name", name, { expires: 7 });
+            Cookies.set("email", email, { expires: 7 });
+            window.location.href = "/";
+          } else {
+            alert("Details do not match. Please check your information.");
+          }
+        } else {
           alert("No user found or invalid credentials.");
-          return;
         }
-
-        Cookies.set("name", name, { expires: 7 });
-        Cookies.set("email", email, { expires: 7 });
-
-        window.location.href = "/";
       } catch (error) {
         console.error("Error logging in: ", error);
         alert("Failed to log in.");
@@ -112,7 +123,7 @@ const RegisterPage = (props: Props) => {
               <label className="font-semibold text-lg md:text-xl">Name:</label>
               <input
                 type="text"
-                className="rounded-md p-2 md:p3 mt-2 w-full border border-gray-400 focus:border-blue-500 transition duration-300"
+                className="rounded-md p-2 md:p-3 mt-2 w-full border border-gray-400 focus:border-blue-500 transition duration-300"
                 placeholder="Ex. Armaan"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -123,7 +134,7 @@ const RegisterPage = (props: Props) => {
               </label>
               <input
                 type="email"
-                className="rounded-md p-2 md:p3 mt-2 w-full border border-gray-400 focus:border-blue-500 transition duration-300"
+                className="rounded-md p-2 md:p-3 mt-2 w-full border border-gray-400 focus:border-blue-500 transition duration-300"
                 placeholder="Ex. armaan33000@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -244,17 +255,10 @@ const RegisterPage = (props: Props) => {
                   onClick={() => setIsRegistered(true)}
                   style={{ fontFamily: "Poppins" }}
                 >
-                  Already registered?
+                  Already Registered? Log In
                 </h3>
               </div>
 
-              <h4 className="text-sm mt-1" style={{ fontFamily: "Poppins" }}>
-                Please join{" "}
-                <a className="text-purple-500 underline cursor-pointer">
-                  Discord
-                </a>{" "}
-                as it's the main communication platform.
-              </h4>
               <div className="mt-4 flex justify-center w-full">
                 <button
                   type="submit"
@@ -267,7 +271,6 @@ const RegisterPage = (props: Props) => {
             </>
           )}
         </form>
-        <br />
       </div>
     </>
   );
