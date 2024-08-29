@@ -4,14 +4,14 @@ import Navbar from "@/components/navbar/Navbar";
 import React, { useState } from "react";
 import {
   collection,
+  addDoc,
+  Timestamp,
   query,
   where,
   getDocs,
-  addDoc,
-  doc,
-  updateDoc,
-  Timestamp,
 } from "firebase/firestore";
+import Cookies from "js-cookie";
+
 type Props = {};
 
 const RegisterPage = (props: Props) => {
@@ -21,52 +21,76 @@ const RegisterPage = (props: Props) => {
   const [munExperience, setMunExperience] = useState(0);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState<string | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
 
   const handleRoleSelection = (role: "Delegate" | "EB") => {
     setSelectedRole(role);
   };
 
-  // const handleSubmit = async (event: any) => {
-  //   event.preventDefault();
-  //   const { name, problem } = event.target.elements;
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
 
-  //   const newPatient = {
-  //     name: name.value,
-  //     problem: problem.value,
-  //     role: selectedRole,
-  //     date: Timestamp.now(),
-  //   };
+    if (isRegistered) {
+      try {
+        const userQuery = query(
+          collection(db, "users"),
+          where("name", "==", name),
+          where("email", "==", email),
+          where("munName", "==", "SMUN-2024")
+        );
+        const querySnapshot = await getDocs(userQuery);
 
-  //   const assignedRoom = assignRoom(newPatient) as any;
+        if (querySnapshot.empty) {
+          alert("No user found or invalid credentials.");
+          return;
+        }
 
-  //   if (assignedRoom) {
-  //     const roomDocRef = doc(db, "rooms", assignedRoom.id);
-  //     const roomPatients = assignedRoom.patientsArray || [];
-  //     const updatedPatientsList = [...roomPatients, newPatient];
+        Cookies.set("name", name, { expires: 7 });
+        Cookies.set("email", email, { expires: 7 });
 
-  //     try {
-  //       await updateDoc(roomDocRef, { patientsArray: updatedPatientsList });
+        window.location.href = "/";
+      } catch (error) {
+        console.error("Error logging in: ", error);
+        alert("Failed to log in.");
+      }
+    } else {
+      if (!name || !email || !selectedRole) {
+        alert("Please fill in all required fields.");
+        return;
+      }
 
-  //       await addDoc(collection(db, "patients"), newPatient);
+      const newUser = {
+        name,
+        email,
+        role: selectedRole,
+        munExperience,
+        dateOfBirth: dateOfBirth
+          ? Timestamp.fromDate(new Date(dateOfBirth))
+          : null,
+        munName: "SMUN-2024",
+        createdAt: Timestamp.now(),
+      };
 
-  //       setRooms((prevRooms: any) =>
-  //         prevRooms.map((room: any) =>
-  //           room.id === assignedRoom.id
-  //             ? { ...room, patientsArray: updatedPatientsList }
-  //             : room
-  //         )
-  //       );
-  //       setPatients((prevPatients) => [...prevPatients, newPatient] as any);
-  //       alert("Patient added successfully!");
-  //     } catch (error) {
-  //       console.error("Error adding patient: ", error);
-  //       alert("Failed to add patient to the database.");
-  //     }
-  //   } else {
-  //     alert("No available rooms");
-  //   }
-  // };
+      try {
+        await addDoc(collection(db, "users"), newUser);
+        alert("User registered successfully!");
+
+        Cookies.set("name", name, { expires: 7 });
+        Cookies.set("email", email, { expires: 7 });
+
+        setName("");
+        setEmail("");
+        setSelectedRole(null);
+        setMunExperience(0);
+        setDateOfBirth(null);
+        setIsRegistered(true);
+      } catch (error) {
+        console.error("Error registering user: ", error);
+        alert("Failed to register user.");
+      }
+    }
+  };
 
   return (
     <>
@@ -79,13 +103,16 @@ const RegisterPage = (props: Props) => {
           {isRegistered ? "Log in here 🔥" : "Register here 🔥"}
         </h3>
 
-        <div className="registerForm mt-6 p-6 border-2 border-gray-600 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300 shadow-lg flex flex-col justify-start items-start w-full max-w-lg">
+        <form
+          onSubmit={handleSubmit}
+          className="registerForm mt-6 p-6 border-2 border-gray-600 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300 shadow-lg flex flex-col justify-start items-start w-full max-w-lg"
+        >
           {isRegistered ? (
             <>
               <label className="font-semibold text-lg md:text-xl">Name:</label>
               <input
                 type="text"
-                className="rounded-md p-2 md:p-3 mt-2 w-full border border-gray-400 focus:border-blue-500 transition duration-300"
+                className="rounded-md p-2 md:p3 mt-2 w-full border border-gray-400 focus:border-blue-500 transition duration-300"
                 placeholder="Ex. Armaan"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -96,7 +123,7 @@ const RegisterPage = (props: Props) => {
               </label>
               <input
                 type="email"
-                className="rounded-md p-2 md:p-3 mt-2 w-full border border-gray-400 focus:border-blue-500 transition duration-300"
+                className="rounded-md p-2 md:p3 mt-2 w-full border border-gray-400 focus:border-blue-500 transition duration-300"
                 placeholder="Ex. armaan33000@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -120,6 +147,7 @@ const RegisterPage = (props: Props) => {
               </h4>
               <div className="mt-4 flex justify-center w-full">
                 <button
+                  type="submit"
                   className="login-btn p-3 md:p-4 transition-all text-center rounded-md cursor-pointer bg-gray-600 text-white font-semibold hover:bg-gray-700 w-full max-w-xs"
                   style={{ fontFamily: "Poppins" }}
                 >
@@ -129,6 +157,7 @@ const RegisterPage = (props: Props) => {
             </>
           ) : (
             <>
+              {/* Registration form */}
               <label className="font-semibold text-lg md:text-xl">Name:</label>
               <input
                 type="text"
@@ -179,7 +208,7 @@ const RegisterPage = (props: Props) => {
                 </div>
               </div>
               <label className="mt-2" style={{ fontFamily: "Poppins" }}>
-                Please make sure that you can enjoy being an EB or a delegate!{" "}
+                Please make sure that you can enjoy being an EB or a delegate!
               </label>
               <label className="font-semibold text-lg md:text-xl mt-4">
                 MUN Experience:
@@ -205,6 +234,7 @@ const RegisterPage = (props: Props) => {
               <input
                 type="date"
                 className="rounded-sm p-2 md:p-3 mt-2 w-full border border-gray-300"
+                onChange={(e) => setDateOfBirth(e.target.value)}
                 style={{ fontFamily: "Poppins" }}
               />
 
@@ -227,6 +257,7 @@ const RegisterPage = (props: Props) => {
               </h4>
               <div className="mt-4 flex justify-center w-full">
                 <button
+                  type="submit"
                   className="register-btn p-3 md:p-4 transition-all text-center rounded-md cursor-pointer bg-gray-600 text-white font-semibold hover:bg-gray-700 w-full max-w-xs"
                   style={{ fontFamily: "Poppins" }}
                 >
@@ -235,7 +266,7 @@ const RegisterPage = (props: Props) => {
               </div>
             </>
           )}
-        </div>
+        </form>
         <br />
       </div>
     </>

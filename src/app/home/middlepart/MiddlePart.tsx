@@ -1,13 +1,25 @@
+"use client";
 import React from "react";
 import "./middlepart.css";
 import Link from "next/link";
+import Cookies from "js-cookie";
 
 type Props = {};
 
 const MiddlePart = (props: Props) => {
+  const handleRegisterButtonClick = () => {
+    const userCookie = Cookies.get("name");
+    const userCookie1 = Cookies.get("email");
+    if (userCookie && userCookie1) {
+      window.location.href = "/";
+    } else {
+      window.location.href = "/register";
+    }
+  };
+
   return (
     <>
-      <div className="middlePartDiv flex flex-col justify-center items-center ">
+      <div className="middlePartDiv flex flex-col justify-center items-center">
         <h4
           className="text-[#8e85fc] text-lg font-bold mt-8 text-center"
           style={{ fontFamily: "Poppins" }}
@@ -26,13 +38,12 @@ const MiddlePart = (props: Props) => {
         </h4>
         <br />
         <div className="buttonsDiv flex flex-col md:flex-row justify-center items-center gap-4">
-          <Link href="/register">
-            <input
-              type="button"
-              value="Get Started"
-              className="bg-[#18171d] rounded-md text-gray-200 py-2 px-4 cursor-pointer transition-all hover:bg-[#25242c]"
-            />
-          </Link>
+          <input
+            type="button"
+            value="Get Started"
+            onClick={handleRegisterButtonClick}
+            className="bg-[#18171d] rounded-md text-gray-200 py-2 px-4 cursor-pointer transition-all hover:bg-[#25242c]"
+          />
           <input
             type="button"
             value="Learn"
@@ -101,7 +112,7 @@ const MiddlePart = (props: Props) => {
             >
               Important Information for SMUN 2024
             </h3>
-            <div className="informationInformationDiv  mt-8 flex flex-wrap justify-center items-center gap-4 sm:m-4 mx-4">
+            <div className="informationInformationDiv mt-8 flex flex-wrap justify-center items-center gap-4 sm:m-4 mx-4">
               <div className="impInfoBox bg-white flex hover:bg-gray-100 transition-all cursor-pointer flex-col justify-center items-start text-start w-full sm:w-[18rem] md:w-[22rem] p-4 rounded-md">
                 <strong className="font-bold text-xl md:text-2xl text-gray-800">
                   Agenda:
@@ -168,7 +179,7 @@ const MiddlePart = (props: Props) => {
                 <strong className="font-bold text-xl md:text-2xl text-gray-800">
                   3rd place:
                 </strong>
-              <span className="text-gray-800">Honorable Mention</span>
+                <span className="text-gray-800">Honorable Mention</span>
               </div>
             </div>
             <div className="anotherInformationBox sm:m-4 mx-4 mt-8 flex flex-wrap justify-center items-center gap-4">
@@ -192,13 +203,13 @@ const MiddlePart = (props: Props) => {
                   70
                 </a>
               </div>
-              <div className="impInfoBox bg-red-500 flex hover:bg-red-600 text-white transition-all cursor-pointer flex-col justify-center items-center text-start w-full sm:w-[18rem] md:w-[22rem] h-[5.5rem] p-4 rounded-md">
-                <Link href="/register">
-                  <h3 className="text-2xl md:text-3xl">Register :)</h3>
-                </Link>
+              <div
+                onClick={handleRegisterButtonClick}
+                className="impInfoBox bg-red-500 flex hover:bg-red-600 text-white transition-all cursor-pointer flex-col justify-center items-center text-start w-full sm:w-[18rem] md:w-[22rem] h-[5.5rem] p-4 rounded-md"
+              >
+                <h3 className="text-2xl md:text-3xl">Register :)</h3>
               </div>
             </div>
-            <br />
           </center>
         </div>
       </div>

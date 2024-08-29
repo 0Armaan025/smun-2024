@@ -30,7 +30,12 @@ const ProfilePage = (props: Props) => {
     <>
       <Navbar />
       <div className="profilePageDiv flex flex-col justify-center items-center px-4">
-        <h3
+        <center>
+          <h3 className="mt-4 text-4xl">
+            Profile Page coming soon, please go to register from home page...
+          </h3>
+        </center>
+        {/* <h3
           className="mt-8 text-3xl md:text-4xl"
           style={{ fontFamily: "Poppins" }}
         >
@@ -57,7 +62,7 @@ const ProfilePage = (props: Props) => {
               )}
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </>
   );
