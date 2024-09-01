@@ -24,7 +24,7 @@ const MiddlePart = (props: Props) => {
           className="text-[#8e85fc] text-lg font-bold mt-8 text-center"
           style={{ fontFamily: "Poppins" }}
         >
-          School Model United Nations (SMUN)
+          Youth Leader Conference Model United nations (YLCMUN)
         </h4>
         <h5
           className="w-full md:w-[36rem] text-center text-2xl md:text-4xl mt-4 font-semibold"
@@ -110,7 +110,7 @@ const MiddlePart = (props: Props) => {
               className="mt-8 text-3xl md:text-4xl text-gray-800"
               style={{ fontFamily: "Poppins" }}
             >
-              Important Information for SMUN 2024
+              Important Information for YLCMUN 2024
             </h3>
             <div className="informationInformationDiv mt-8 flex flex-wrap justify-center items-center gap-4 sm:m-4 mx-4">
               <div className="impInfoBox bg-white flex hover:bg-gray-100 transition-all cursor-pointer flex-col justify-center items-start text-start w-full sm:w-[18rem] md:w-[22rem] p-4 rounded-md">

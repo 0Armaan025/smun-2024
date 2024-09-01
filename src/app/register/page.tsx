@@ -1,7 +1,7 @@
 "use client";
 import { db } from "@/firebase/clientApp";
 import Navbar from "@/components/navbar/Navbar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   collection,
   addDoc,
@@ -24,12 +24,31 @@ const RegisterPage = (props: Props) => {
   const [dateOfBirth, setDateOfBirth] = useState<string | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
 
+  useEffect(() => {
+    const existingName = Cookies.get("name");
+    const existingEmail = Cookies.get("email");
+
+    if (existingName || existingEmail) {
+      alert("You have already registered or logged in.");
+      window.location.href = "/";
+    }
+  }, []); // Empty dependency array ensures this runs only once when the component mounts.
+
   const handleRoleSelection = (role: "Delegate" | "EB") => {
     setSelectedRole(role);
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    const existingName = Cookies.get("name");
+    const existingEmail = Cookies.get("email");
+
+    if (existingName && existingEmail) {
+      alert("You have already registered or logged in.");
+      window.location.href = "/";
+      return;
+    }
 
     if (isRegistered) {
       try {
@@ -96,6 +115,7 @@ const RegisterPage = (props: Props) => {
         setMunExperience(0);
         setDateOfBirth(null);
         setIsRegistered(true);
+        window.location.href = "/";
       } catch (error) {
         console.error("Error registering user: ", error);
         alert("Failed to register user.");
@@ -120,6 +140,7 @@ const RegisterPage = (props: Props) => {
         >
           {isRegistered ? (
             <>
+              {/* Login form */}
               <label className="font-semibold text-lg md:text-xl">Name:</label>
               <input
                 type="text"
@@ -227,43 +248,35 @@ const RegisterPage = (props: Props) => {
               <input
                 type="range"
                 min="0"
-                max="15"
+                max="10"
+                step="1"
                 value={munExperience}
-                onChange={(e) => setMunExperience(parseInt(e.target.value))}
-                className="mt-2 w-full accent-gray-600"
+                onChange={(e) => setMunExperience(Number(e.target.value))}
+                className="w-full mt-2"
               />
-              <p
-                className="mt-1 text-gray-600"
-                style={{ fontFamily: "Poppins" }}
-              >
-                {munExperience} MUNs attended
-              </p>
+              <label className="block mt-2">
+                {munExperience} {munExperience === 10 ? "+" : ""}
+              </label>
 
               <label className="font-semibold text-lg md:text-xl mt-4">
                 Date of Birth (optional):
               </label>
               <input
                 type="date"
-                className="rounded-sm p-2 md:p-3 mt-2 w-full border border-gray-300"
+                value={dateOfBirth ?? ""}
                 onChange={(e) => setDateOfBirth(e.target.value)}
+                className="rounded-md p-2 md:p-3 mt-2 w-full border border-gray-400 focus:border-blue-500 transition duration-300"
                 style={{ fontFamily: "Poppins" }}
               />
 
-              <div className="flex mt-2 flex-row w-full items-end justify-end text-end">
-                <h3
-                  className="underline text-purple-500 text-semibold cursor-pointer"
-                  onClick={() => setIsRegistered(true)}
-                  style={{ fontFamily: "Poppins" }}
-                >
-                  Already Registered? Log In
-                </h3>
-              </div>
-
-              <div className="mt-4 flex justify-center w-full">
+              <div className="mt-6 flex justify-center w-full">
                 <button
                   type="submit"
-                  className="register-btn p-3 md:p-4 transition-all text-center rounded-md cursor-pointer bg-gray-600 text-white font-semibold hover:bg-gray-700 w-full max-w-xs"
+                  className={`p-3 md:p-4 transition-all text-center rounded-md cursor-pointer bg-gray-600 text-white font-semibold hover:bg-gray-700 w-full max-w-xs ${
+                    !name || !email || !selectedRole ? "hover:animate-ping" : ""
+                  }`}
                   style={{ fontFamily: "Poppins" }}
+                  disabled={!name || !email || !selectedRole}
                 >
                   Register 🔥
                 </button>
