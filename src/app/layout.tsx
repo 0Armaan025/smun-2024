@@ -5,8 +5,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SMUN",
-  description: "School M.U.N, the only MUN resource you need",
+  title: "YLCMUN",
+  description:
+    "Youth Leader Conference Model United Nations, the only MUN resource you need",
 };
 
 export default function RootLayout({

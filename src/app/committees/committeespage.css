@@ -1,0 +1,17 @@
+.committees-page {
+  padding: 2rem;
+  background-color: #f0f4f8;
+}
+
+.committee-card {
+  background-color: #e5e7eb;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
+}
+
+.committee-card:hover {
+  transform: scale(1.05);
+}

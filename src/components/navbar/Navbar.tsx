@@ -9,7 +9,7 @@ const Navbar = () => {
           className="text-black text-lg font-bold flex flex-row"
           style={{ fontFamily: "Poppins" }}
         >
-          <h4>SMUN</h4>
+          <h4>YLCMUN</h4>
         </div>
       </Link>
 
@@ -25,6 +25,18 @@ const Navbar = () => {
           className="text-gray-700 transition-all hover:text-black text-center"
         >
           Learn
+        </a>
+        <a
+          href="/committees"
+          className="text-gray-700 transition-all hover:text-black text-center"
+        >
+          Committees
+        </a>
+        <a
+          href="/meet-the-team"
+          className="text-gray-700 transition-all hover:text-black text-center"
+        >
+          Team
         </a>
       </div>
 
